@@ -183,9 +183,8 @@ const FileLibrary = {
             store.setInputJSON(leftFile.content, leftFile.contentString);
             store.setOutputJSON(rightFile.content, rightFile.contentString);
 
-            // Compute diff
-            const diffResult = DiffEngine.computeDiff(leftFile.content, rightFile.content);
-            store.setDiffResult(diffResult);
+            // Calculate diff using the store method
+            store.calculateDiff();
 
             // Render all views
             if (typeof App !== 'undefined' && App.refreshAllViews) {
