@@ -12,14 +12,18 @@ const FileLibrary = {
     /**
      * Initialize file library
      * - Load persisted files if enabled
+     * - Preload example files if library is empty
      * - Set up event listeners
      * - Render initial UI
      */
-    init() {
+    async init() {
         console.log('Initializing File Library...');
 
         // Load persisted files from localStorage
         this.loadPersistedFiles();
+
+        // Preload example files if library is empty
+        await this.preloadExampleFiles();
 
         // Render file list
         this.render();
@@ -43,6 +47,51 @@ const FileLibrary = {
                 store.importFileLibrary(savedFiles, false);
             }
         }
+    },
+
+    /**
+     * Preload example files from examples folder
+     * Only loads if the library is empty to avoid duplicates
+     */
+    async preloadExampleFiles() {
+        const store = useStore.getState();
+
+        // Only preload if library is empty
+        if (store.uploadedFiles.length > 0) {
+            console.log('File library not empty, skipping example preload');
+            return;
+        }
+
+        console.log('Preloading example files...');
+
+        const exampleFiles = [
+            'examples/JSON/ex1-header-fundedProject.json',
+            'examples/JSON/ex2-dataset-planned.json',
+            'examples/JSON/ex3-dataset-finished.json',
+            'examples/JSON/missing-title.json',
+            'examples/JSON/missing-dataset.json'
+        ];
+
+        for (const filePath of exampleFiles) {
+            try {
+                const response = await fetch(filePath);
+                if (response.ok) {
+                    const content = await response.text();
+                    const filename = filePath.split('/').pop();
+
+                    // Create file object and add to library silently (no toast)
+                    const fileObj = this.createFileObject(content, filename, 'example');
+                    store.addFile(fileObj);
+                    console.log(`Preloaded: ${filename}`);
+                } else {
+                    console.warn(`Failed to load example file: ${filePath}`);
+                }
+            } catch (error) {
+                console.warn(`Error loading example file ${filePath}:`, error);
+            }
+        }
+
+        console.log(`Preloaded ${store.uploadedFiles.length} example files`);
     },
 
     /**

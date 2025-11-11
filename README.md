@@ -1,6 +1,86 @@
 # maDMP Validator & Diff Tool
 
-A client-side web application for validating and comparing machine-actionable Data Management Plans (maDMP) according to the RDA DMP Common Standard.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![RDA DMP Common Standard](https://img.shields.io/badge/RDA-DMP%20v1.2-blue.svg)](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard)
+
+> A powerful, client-side web application for validating and comparing machine-actionable Data Management Plans (maDMP) according to the RDA DMP Common Standard.
+
+## Overview
+
+This tool provides researchers, data managers, and institutions with a comprehensive solution for:
+- **Validating** maDMP documents against the official RDA schema v1.2
+- **Comparing** different versions of maDMP files with multiple visualization formats
+- **Analyzing** changes between original and API-processed maDMP documents
+- **Managing** multiple maDMP files with a built-in file library
+- **Exporting** comparison results in various formats (JSON, HTML, PDF, CSV, Markdown)
+
+**Key Advantages:**
+- 🔒 **Privacy First**: All processing happens in your browser - no data sent to external servers
+- ⚡ **Fast & Lightweight**: No installation required, runs entirely client-side
+- 🎨 **Multiple Views**: 4 different visualization formats to suit your workflow
+- 🔍 **Powerful Search**: Find changes instantly with real-time search and filtering
+- 💾 **Session Management**: Save and restore comparison sessions for later review
+- ⌨️ **Keyboard Shortcuts**: Work efficiently with comprehensive keyboard navigation
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/standard-diff.git
+cd standard-diff
+
+# Open in browser (no build required!)
+open index.html
+
+# Or use a local server
+python3 -m http.server 8000
+# Navigate to http://localhost:8000
+```
+
+**That's it!** The tool includes example files that are automatically loaded when you first open it.
+
+## Demo Usage
+
+```javascript
+// 1. Open index.html in your browser
+// 2. Five example files are automatically loaded in the File Library
+
+// 3. Click [L] on "Funded DMP" to select it as the left file
+// 4. Click [R] on "Planned Dataset" to select it as the right file
+// 5. Comparison appears instantly in all four visualization modes!
+
+// 6. Try different views:
+//    - Side-by-Side: Visual comparison with color-coded changes
+//    - Unified: Git-style diff format
+//    - JSONata: Transformation queries
+//    - Tree: Hierarchical structure view
+
+// 7. Search for specific changes:
+//    - Press Ctrl+F or click the search box
+//    - Type "dataset" to find all dataset-related changes
+//    - Use F3/Shift+F3 to navigate matches
+
+// 8. Export your comparison:
+//    - Click Export dropdown
+//    - Choose format (JSON, HTML, PDF, CSV, Markdown)
+//    - Save or share your report
+```
+
+## Table of Contents
+
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+- [File Structure](#file-structure)
+- [Example maDMP Files](#example-madmp-files)
+- [Browser Compatibility](#browser-compatibility)
+- [Features in Detail](#features-in-detail)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
+- [Roadmap](#roadmap)
+- [License](#license)
+- [Credits](#credits)
+- [Changelog](#changelog)
 
 ## Features
 
@@ -14,13 +94,23 @@ A client-side web application for validating and comparing machine-actionable Da
 - **Drag & Drop**: Drag JSON files directly into the browser
 - **Paste JSON**: Copy and paste JSON content directly
 
-### 3. API Integration
+### 3. File Library
+- **Multiple Files**: Upload and manage multiple maDMP files
+- **Example Files**: Pre-loaded example files for quick testing
+- **Selection System**: Mark files as Left [L] or Right [R] for comparison
+- **Auto-Compare**: Automatically compares when both files are selected
+- **Metadata Display**: Shows validation status, file size, and timestamp
+- **File Actions**: Rename, delete, or clear all files
+- **Persistence**: Optional localStorage persistence across sessions
+- **Import/Export**: Export library and import on another machine
+
+### 4. API Integration
 - Send maDMP to common-madmp-api endpoint
 - Receive merged maDMP response
 - Configurable endpoint URL (saved in localStorage)
 - Connection testing
 
-### 4. Diff Visualization (4 Formats)
+### 5. Diff Visualization (4 Formats)
 
 #### Side-by-Side View
 - Two-panel comparison with synchronized scrolling
@@ -44,26 +134,26 @@ A client-side web application for validating and comparing machine-actionable Da
 - Change indicators at each level
 - Icons for different data types
 
-### 5. Statistics
+### 6. Statistics
 - Input JSON metrics (size, object count, depth)
 - Diff statistics (total changes, percentages)
 - Real-time updates
 
-### 6. Search & Filter
+### 7. Search & Filter
 - **Real-time Search**: Search across all changes by path or value
 - **Filter by Type**: Show/hide added, removed, modified, or unchanged fields
 - **Match Highlighting**: Visual highlighting of search results
 - **Match Navigation**: Navigate through search results with keyboard shortcuts
 - **Live Counters**: See counts of each change type with badge indicators
 
-### 7. Change Navigation
+### 8. Change Navigation
 - **Next/Previous Controls**: Navigate through changes sequentially
 - **Keyboard Shortcuts**: Use Alt+Arrow keys for quick navigation
 - **Visual Highlighting**: Current change highlighted in active view
 - **Change Counter**: Track your position (e.g., "3 / 15")
 - **Cross-View Support**: Navigation works across all diff visualization formats
 
-### 8. Session Management
+### 9. Session Management
 - **Save Sessions**: Save current comparison state for later review
 - **Session History**: Browse previously saved sessions
 - **Bookmarks**: Star important sessions for quick access
@@ -71,7 +161,7 @@ A client-side web application for validating and comparing machine-actionable Da
 - **Quick Restore**: Click any session to instantly restore it
 - **Clear History**: Remove old sessions to keep history manageable
 
-### 9. Export & Share (Multiple Formats)
+### 10. Export & Share (Multiple Formats)
 - **JSON Export**: Raw diff data for programmatic use
 - **HTML Export**: Self-contained report viewable in any browser
 - **PDF Export**: Professional formatted reports with statistics
@@ -79,7 +169,7 @@ A client-side web application for validating and comparing machine-actionable Da
 - **Markdown Export**: Documentation-friendly format for wikis/README files
 - **Copy to Clipboard**: Quick copy of diff results as text
 
-### 10. Keyboard Shortcuts
+### 11. Keyboard Shortcuts
 - **File Operations**: Ctrl+O (open), Ctrl+S (save session), Ctrl+E (export)
 - **Navigation**: Alt+Arrows (next/prev change)
 - **Search**: Ctrl+F (focus search), F3 (next match), Shift+F3 (prev match), Esc (clear)
@@ -87,7 +177,7 @@ A client-side web application for validating and comparing machine-actionable Da
 - **Other**: Ctrl+D (dark mode), F11 (fullscreen), ? (show shortcuts help)
 - **API**: Ctrl+Enter (send to API)
 
-### 11. UI Features
+### 12. UI Features
 - Dark mode toggle (with localStorage persistence)
 - Responsive design (mobile-friendly)
 - Fullscreen mode for diff views
@@ -99,14 +189,21 @@ A client-side web application for validating and comparing machine-actionable Da
 
 ## Technology Stack
 
-- **UI Framework**: Bootstrap 5.2
-- **JavaScript**: Vanilla ES6+
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?logo=javascript)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.2-purple?logo=bootstrap)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+
+- **UI Framework**: Bootstrap 5.2 (Bootswatch Yeti theme)
+- **JavaScript**: Vanilla ES6+ (no build tools required)
 - **State Management**: Zustand v4
-- **JSON Validation**: Ajv v8
+- **JSON Validation**: Ajv v8 (draft-2020-12)
 - **Query Language**: JSONata v2
 - **Diff Engine**: jsdiff v5
 - **PDF Generation**: jsPDF v2.5
 - **Schema**: RDA-DMP-Common-Standard v1.2
+- **Icons**: Bootstrap Icons
+- **Storage**: localStorage API for persistence
 
 ## Getting Started
 
@@ -123,16 +220,21 @@ python3 -m http.server 8000
 # Then navigate to http://localhost:8000
 ```
 
-### 2. Upload a maDMP JSON File
+### 2. Explore Example Files
+
+The File Library is **pre-loaded with 5 example maDMP files**:
+- Select any file as Left [L] by clicking the left button
+- Select another file as Right [R] by clicking the right button
+- The comparison automatically appears when both are selected!
+
+### 3. Upload Your Own Files (Optional)
 
 Choose one of three methods:
 - Click "File" tab and browse for a JSON file
 - Click "Drop" tab and drag a file into the drop zone
 - Click "Paste" tab and paste JSON content directly
 
-### 3. Validate
-
-The tool automatically validates your maDMP against schema v1.2 and displays results.
+All files are automatically validated against maDMP schema v1.2.
 
 ### 4. Configure API (Optional)
 
@@ -192,7 +294,9 @@ standard-diff/
 │   ├── diff-search.js                  # Search & filter functionality
 │   ├── diff-navigation.js              # Change navigation controls
 │   ├── session-manager.js              # Session save/load/history
+│   ├── file-library.js                 # File library management
 │   ├── keyboard-shortcuts.js           # Keyboard shortcuts system
+│   ├── sidebar-toggle.js               # Sidebar collapse/expand
 │   ├── diff-renderers/
 │   │   ├── side-by-side.js             # Side-by-side view
 │   │   ├── unified.js                  # Unified diff view
@@ -203,18 +307,34 @@ standard-diff/
 │       ├── csv-exporter.js             # CSV export
 │       ├── markdown-exporter.js        # Markdown export
 │       └── html-exporter.js            # HTML report generation
-└── schemas/
-    └── maDMP-schema-1.2.json           # maDMP JSON schema v1.2
+├── schemas/
+│   └── maDMP-schema-1.2.json           # maDMP JSON schema v1.2
+└── examples/
+    └── JSON/                           # Example maDMP files
+        ├── ex1-header-fundedProject.json
+        ├── ex2-dataset-planned.json
+        ├── ex3-dataset-finished.json
+        ├── missing-title.json
+        └── missing-dataset.json
 ```
 
 ## Example maDMP Files
 
-Example maDMP JSON files are available in the `RDA-DMP-Common-Standard/examples/JSON/` directory:
+The tool includes example maDMP JSON files in the `examples/JSON/` directory that are **automatically preloaded** into the File Library when you first open the application:
 
-- `ex8-dmp-minimal-content.json` - Minimal valid maDMP
-- `ex9-dmp-long.json` - Comprehensive example
-- `ex1-header-fundedProject.json` - Funded project example
-- And more...
+- **ex1-header-fundedProject.json** - Example of a funded project DMP with complete metadata
+- **ex2-dataset-planned.json** - DMP for a planned dataset
+- **ex3-dataset-finished.json** - DMP for a completed dataset
+- **missing-title.json** - Example with validation errors (missing required title)
+- **missing-dataset.json** - Example with validation errors (missing dataset)
+
+These examples demonstrate:
+- Valid maDMP structure and syntax
+- Required vs optional fields
+- Common validation issues
+- Different project states (planned, active, finished)
+
+You can immediately select any two files using the [L] and [R] buttons to see a live comparison!
 
 ## Browser Compatibility
 
@@ -365,16 +485,90 @@ Toggle between light and dark themes:
 
 ## License
 
+MIT License - see [LICENSE](./LICENSE) file for details.
+
 This tool is provided as-is for validating and comparing maDMP documents according to the RDA DMP Common Standard.
+
+## Development
+
+### AI-Assisted Development
+
+This project was developed with assistance from multiple AI coding assistants and large language models:
+
+- **[Claude Code](https://claude.ai/claude-code)** (Anthropic) - Primary development assistant for architecture, feature implementation, and code quality
+- **OpenAI Codex** - Code generation and optimization
+- **Google Gemini** - Algorithm design and problem-solving
+- **Qwen** (Alibaba Cloud) - Code review and refinement
+- **MiniMax M2** - Testing and debugging assistance
+
+These AI tools helped accelerate development, improve code quality, and implement best practices. However, all code has been reviewed, tested, and validated by human developers to ensure functionality, security, and maintainability.
+
+### Technology Stack
+
+The project uses modern web technologies without requiring build tools:
+
+- **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3
+- **UI Framework**: Bootstrap 5.2 with Bootswatch Yeti theme
+- **State Management**: Zustand v4
+- **Validation**: Ajv v8 (JSON Schema validator)
+- **Diff Engine**: jsdiff v5
+- **Query Language**: JSONata v2
+- **PDF Generation**: jsPDF v2.5
+- **Icons**: Bootstrap Icons
+
+### Contributing
+
+Contributions are welcome! Whether you're fixing bugs, adding features, or improving documentation:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes and test thoroughly
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+Please ensure your code:
+- Follows existing code style and conventions
+- Includes comments for complex logic
+- Works in all major browsers (Chrome, Firefox, Safari, Edge)
+- Doesn't introduce security vulnerabilities
 
 ## Credits
 
-- RDA DMP Common Standards Working Group
-- Bootstrap 5.2 framework
-- Zustand state management
-- Ajv JSON schema validator
-- JSONata query language
-- jsdiff library
+- **RDA DMP Common Standards Working Group** - For the maDMP standard and schema
+- **Bootstrap Team** - For the excellent UI framework
+- **Library Authors**:
+  - Zustand state management
+  - Ajv JSON schema validator
+  - JSONata query language
+  - jsdiff library
+  - jsPDF PDF generation
+- **AI Development Partners** - Claude Code, OpenAI Codex, Google Gemini, Qwen, MiniMax M2
+
+## Roadmap
+
+### Upcoming Features
+
+#### API Testing & Integration (Priority: High)
+- **Automated API Testing Suite**: Comprehensive API testing functionality will be added as soon as a publicly accessible maDMP API endpoint is available for testing
+  - Automated request/response validation
+  - API endpoint health monitoring
+  - Mock API server for local testing
+  - Response time metrics
+  - Error handling test scenarios
+  - CORS configuration validator
+
+#### Other Planned Enhancements
+- **Batch Processing**: Compare multiple files simultaneously
+- **Custom Schema Support**: Allow users to upload custom JSON schemas
+- **Diff Templates**: Save and reuse custom diff configurations
+- **Advanced Filtering**: More granular filtering options for change types
+- **Collaboration Features**: Share comparisons with team members via URLs
+- **Version History**: Track changes across multiple versions of the same file
+- **Integration APIs**: REST API for programmatic access
+- **Plugin System**: Allow community-contributed extensions
+
+Want to contribute or suggest features? Open an issue on our [GitHub repository](https://github.com/yourusername/standard-diff/issues)!
 
 ## Support
 
@@ -382,8 +576,18 @@ For issues related to:
 - **This tool**: Check browser console for errors
 - **maDMP Standard**: See [RDA-DMP-Common-Standard](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard)
 - **API Issues**: Contact your API provider
+- **Feature Requests**: Open an issue on GitHub
 
 ## Changelog
+
+### Version 2.1.0 (2025-11-11)
+- **File Library**: Multi-file management with Left/Right selection system
+- **Auto-Preload Examples**: 5 example files automatically loaded on first use
+- **File Persistence**: Optional localStorage persistence across browser sessions
+- **Library Import/Export**: Save and share entire file libraries
+- **File Metadata**: Display validation status, size, and timestamp for each file
+- **Auto-Compare**: Automatic diff calculation when both files selected
+- **Improved README**: Enhanced documentation with AI development acknowledgment
 
 ### Version 2.0.0 (2025)
 - **Search & Filter**: Real-time search across all changes with type filtering
@@ -398,11 +602,14 @@ For issues related to:
 ### Version 1.0.0 (2025)
 - Initial release
 - Full maDMP v1.2 validation
-- Four diff visualization formats
-- API integration
+- Four diff visualization formats (Side-by-Side, Unified, JSONata, Tree)
+- API integration with common-madmp-api
 - Dark mode support
 - Export/import functionality
+- Three upload methods (File, Drag & Drop, Paste)
 
 ---
 
 **Made with ❤️ for the research data management community**
+
+*Developed with AI assistance from Claude Code, OpenAI Codex, Google Gemini, Qwen, and MiniMax M2*
